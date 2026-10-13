@@ -46,9 +46,9 @@ export function icon(name, cls = 'icon') {
   return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || ''}</svg>`;
 }
 
-// Logo mark: the practice has no logo, so this is a simple tooth in its green.
+// Logo mark: the practice has no logo, so this is a simple tooth in the site's colours.
 export const logoMark = `
 <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-  <circle cx="20" cy="20" r="20" fill="#3c8a3f"/>
-  <path d="M20 13.2c-1.6-1.4-3.6-2.2-5.6-1.7-2.6.7-3.6 3.1-3.2 5.7.4 2.4 1.3 4.2 1.8 6.6.4 2.2.9 5.2 2.6 5.2 1.6 0 1.8-3.4 2.4-5.2.3-.9.9-1.3 2-1.3s1.7.4 2 1.3c.6 1.8.8 5.2 2.4 5.2 1.7 0 2.2-3 2.6-5.2.5-2.4 1.4-4.2 1.8-6.6.4-2.6-.6-5-3.2-5.7-2-.5-4 .3-5.6 1.7z" fill="#fff"/>
+  <circle cx="20" cy="20" r="20" fill="#14261a"/>
+  <path d="M20 13.2c-1.6-1.4-3.6-2.2-5.6-1.7-2.6.7-3.6 3.1-3.2 5.7.4 2.4 1.3 4.2 1.8 6.6.4 2.2.9 5.2 2.6 5.2 1.6 0 1.8-3.4 2.4-5.2.3-.9.9-1.3 2-1.3s1.7.4 2 1.3c.6 1.8.8 5.2 2.4 5.2 1.7 0 2.2-3 2.6-5.2.5-2.4 1.4-4.2 1.8-6.6.4-2.6-.6-5-3.2-5.7-2-.5-4 .3-5.6 1.7z" fill="#c6ef6b"/>
 </svg>`;

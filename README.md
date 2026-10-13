@@ -15,6 +15,7 @@ A redesign proposal for [inchicoredentalcentre.com](https://inchicoredentalcentr
 - **Appointment request form** — prepares an email to the practice (name, phone, reason, preferred time), with a copy option. No server needed.
 - **Getting here** — map, copy-address button, directions, and both parking options.
 - **No stock photos** — the current site uses 2013 stock images; this one uses icons and leaves a marked space for real photos.
+- **Its own look** — a "village practice" design: warm paper, near-black green and lime, a bold grotesque for headings, services as numbered rows, a menu-style price list and a weekly opening-hours chart.
 - **Accessible** — semantic HTML, skip link, keyboard-friendly menu (focus trap, Esc to close), visible focus, reduced-motion support.
 
 ## Stack
