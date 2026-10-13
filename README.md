@@ -16,6 +16,9 @@ A redesign proposal for [inchicoredentalcentre.com](https://inchicoredentalcentr
 - **Getting here** — map, copy-address button, directions, and both parking options.
 - **No stock photos** — the current site uses 2013 stock images; this one uses icons and leaves a marked space for real photos.
 - **Its own look** — a "village practice" design: warm paper, near-black green and lime, a bold grotesque for headings, services as numbered rows, a menu-style price list and a weekly opening-hours chart.
+- **Dental care at a glance** — a tooth illustration and dental-care label in the hero, plus treatment icons in the service rows.
+- **Dentist preference carried through** — team links select the preferred dentist in the request form; the choice is included in both the email draft and copied request. Reception confirms availability.
+- **Current open/closed status** — refreshes every 30 seconds and on tab return without resetting the appointment form. The weekly schedule itself is unchanged.
 - **Accessible** — semantic HTML, skip link, keyboard-friendly menu (focus trap, Esc to close), visible focus, reduced-motion support.
 
 ## Stack

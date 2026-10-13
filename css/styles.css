@@ -94,6 +94,16 @@ mark { background: var(--lime); color: var(--ink); padding: 0 .1em; border-radiu
 .hero { background: var(--ink); color: #fff; padding: 64px 0 0; overflow: hidden; }
 .hero__grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: end; }
 .hero__copy .pill { margin-bottom: 26px; }
+.hero__eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--lime); }
+.hero__eyebrow .icon { width: 23px; height: 23px; }
+.dental-sign { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px; padding: 20px; background: var(--paper); border-radius: var(--r-lg); color: var(--ink); text-decoration: none; }
+.dental-sign__tooth { display: grid; place-items: center; width: 88px; height: 88px; flex: none; border-radius: 50%; background: var(--leaf); }
+.dental-sign__tooth .icon { width: 62px; height: 62px; stroke-width: 1.4; color: var(--green-2); }
+.dental-sign__copy { flex: 1; min-width: 0; }
+.dental-sign__copy strong { display: block; font-family: var(--display); font-size: 1.4rem; line-height: 1.08; letter-spacing: -.02em; }
+.dental-sign__copy > span { display: block; margin-top: 8px; font-size: .85rem; color: var(--ink-2); }
+.dental-sign > .icon { width: 18px; height: 18px; color: var(--green-2); }
+.dental-sign:hover { background: var(--leaf); }
 .hero__lead { font-size: 1.2rem; color: #cfd8cd; max-width: 34em; }
 .hero__tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .tile { display: flex; flex-direction: column; gap: 6px; min-height: 150px; padding: 20px; border-radius: var(--r-lg); text-decoration: none; color: inherit; }
@@ -129,6 +139,7 @@ a.tile--line:hover { border-color: var(--lime); }
 .row { display: grid; grid-template-columns: 56px 1.1fr 1.6fr auto 40px; gap: 20px; align-items: center; padding: 22px 8px; border-bottom: 1px solid var(--line); text-decoration: none; transition: background .15s, padding .15s; }
 .row:hover { background: var(--lime); padding-left: 16px; }
 .row__n { font-family: var(--display); font-weight: 700; color: var(--muted); }
+.row__n .icon { width: 28px; height: 28px; color: var(--green-2); }
 .row__title { font-family: var(--display); font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; }
 .row__text { color: var(--ink-2); }
 .row__fee { font-weight: 700; white-space: nowrap; }
@@ -338,6 +349,10 @@ a.tile--line:hover { border-color: var(--lime); }
   .logo__text { font-size: 1.2rem; }
   .logo__text span { font-size: .64rem; }
   .hero__tiles { gap: 10px; }
+  .dental-sign { padding: 16px; gap: 12px; }
+  .dental-sign__tooth { width: 70px; height: 70px; }
+  .dental-sign__tooth .icon { width: 50px; height: 50px; }
+  .dental-sign__copy strong { font-size: 1.2rem; }
   .tile { min-height: 128px; padding: 16px; border-radius: 18px; }
   .tile__big { font-size: 3.2rem; }
   .tile__v { font-size: 1.1rem; }

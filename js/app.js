@@ -1,6 +1,6 @@
 import {
   clinic, hours, nav, highlights, team, aboutPillars, services, feeGroups, savings, feeNote, faqs,
-} from './data.js';
+} from './data.js?v=20261013-dental3';
 import { icon, logoMark } from './icons.js';
 
 /* ---------- helpers ---------- */
@@ -67,7 +67,19 @@ function openStatus() {
   return { open: false, text: 'Closed' };
 }
 
-const statusPill = (s = openStatus()) => `<span class="pill ${s.open ? 'is-open' : ''}"><span class="dot"></span>${s.text}</span>`;
+const statusPill = (s = openStatus()) => `<span class="pill ${s.open ? 'is-open' : ''}" data-live-status><span class="dot"></span><span data-status-text>${s.text}</span></span>`;
+
+function refreshOpeningStatus() {
+  const status = openStatus();
+  $$('[data-live-status]').forEach((el) => {
+    el.classList.toggle('is-open', status.open);
+    $('[data-status-text]', el).textContent = status.text;
+  });
+  const { day } = dublinNow();
+  const today = hours.find((h) => h.day === day);
+  $$('[data-today-hours]').forEach((el) => { el.textContent = today.text; });
+  $$('.week li[data-day]').forEach((el) => el.classList.toggle('is-today', Number(el.dataset.day) === day));
+}
 
 // Week timetable: one row per day with a bar showing the opening window (8am–6pm scale).
 const timetable = () => {
@@ -78,7 +90,7 @@ const timetable = () => {
     ${[1, 2, 3, 4, 5, 6, 0].map((d) => {
       const h = hours.find((x) => x.day === d);
       const bar = h.open == null ? '' : `<span class="week__bar" style="left:${((h.open - from) / (to - from)) * 100}%;width:${((h.close - h.open) / (to - from)) * 100}%"></span>`;
-      return `<li class="${d === day ? 'is-today' : ''}"><span class="week__day">${h.label.slice(0, 3)}</span><span class="week__track" aria-hidden="true">${bar}</span><span class="week__time">${h.text}</span></li>`;
+      return `<li data-day="${d}" class="${d === day ? 'is-today' : ''}"><span class="week__day">${h.label.slice(0, 3)}</span><span class="week__track" aria-hidden="true">${bar}</span><span class="week__time">${h.text}</span></li>`;
     }).join('')}
   </ul>`;
 };
@@ -131,19 +143,25 @@ function renderHome() {
   <section class="hero">
     <div class="wrap hero__grid">
       <div class="hero__copy">
+        <p class="hero__eyebrow">${icon('tooth')}Family dental care · Dublin 8</p>
         ${statusPill(s)}
         <h1 class="title-hero">Your dentist in <mark>Inchicore</mark>.</h1>
         <p class="hero__lead">A family-friendly practice on Tyrconnell Road, with modern digital equipment and a personal, caring service. Private, PRSI and medical card patients welcome.</p>
         <div class="actions">${callBtn('btn--lime btn--big')}${bookLink('btn--ghost-light btn--big', 'Request a visit')}</div>
       </div>
       <div class="hero__tiles">
+        <a class="dental-sign" href="#/services" aria-label="Explore our dental services">
+          <span class="dental-sign__tooth">${icon('tooth')}</span>
+          <span class="dental-sign__copy"><strong>Healthy teeth.<br>A confident smile.</strong><span>Check-ups, fillings &amp; dental care</span></span>
+          ${icon('arrowRight')}
+        </a>
         <a class="tile tile--lime" href="${clinic.mapsUrl}" target="_blank" rel="noopener" aria-label="${clinic.rating.score} out of 5 from ${clinic.rating.count} Google reviews">
           <span class="tile__big">${clinic.rating.score}</span>
           <span>${stars()}<br>${clinic.rating.count} Google reviews</span>
         </a>
         <div class="tile tile--paper">
           <span class="tile__k">Today</span>
-          <span class="tile__v">${today.text}</span>
+          <span class="tile__v" data-today-hours>${today.text}</span>
           <a class="link" href="#/contact" data-scroll="hours">Full opening hours ${icon('arrowRight')}</a>
         </div>
         <a class="tile tile--line" href="${clinic.phoneHref}">
@@ -174,7 +192,7 @@ function renderHome() {
       <ol class="rows">
         ${services.slice(0, 8).map((t, i) => `
           <li data-reveal><a class="row" href="#/services/${t.id}">
-            <span class="row__n">${pad(i + 1)}</span>
+            <span class="row__n">${icon(t.icon)}</span>
             <span class="row__title">${t.title}</span>
             <span class="row__text">${t.short}</span>
             <span class="row__fee">${t.fee}</span>
@@ -271,7 +289,7 @@ function renderTeam() {
             <p class="person__role">${m.role} · ${m.quals}</p>
             <h2 class="title-md">${m.name}</h2>
             <p>${m.bio}</p>
-            <a class="link" href="#/contact" data-scroll="appointment">Book with ${m.name.split(' ').slice(0, 2).join(' ')} ${icon('arrowRight')}</a>
+            <a class="link" href="#/contact/${m.id}" data-scroll="appointment">Request a visit with ${m.name.split(' ').slice(0, 2).join(' ')} ${icon('arrowRight')}</a>
           </div>
         </article>`).join('')}
     </div>
@@ -344,7 +362,8 @@ function renderPrices(sub) {
   ${callout('Questions about a treatment or its cost?', `Call us on ${clinic.phone} and we’ll talk you through it.`)}`;
 }
 
-function renderContact() {
+function renderContact(dentistId) {
+  const preferredDentist = team.find((m) => m.id === dentistId);
   return `
   ${pageHead({
     crumb: 'Contact Us', n: 1,
@@ -363,6 +382,13 @@ function renderContact() {
             <label>Phone<input name="phone" type="tel" required autocomplete="tel"></label>
           </div>
           <label>Email<input name="email" type="email" autocomplete="email"></label>
+          <label>Preferred dentist
+            <select name="dentist">
+              <option value="">No preference</option>
+              ${team.map((m) => `<option value="${m.id}"${m.id === preferredDentist?.id ? ' selected' : ''}>${m.name}</option>`).join('')}
+            </select>
+          </label>
+          <p class="small muted">Reception will confirm your preferred dentist’s availability.</p>
           <div class="form__row">
             <label>Reason for visit
               <select name="reason">
@@ -551,6 +577,7 @@ function bindPage() {
       const body = [
         `Name: ${name}`, `Phone: ${phone}`, `Email: ${f.get('email') || '-'}`,
         `Reason: ${f.get('reason')}`, `Preferred time: ${f.get('time')}`,
+        `Preferred dentist: ${team.find((m) => m.id === f.get('dentist'))?.name || 'No preference'}`,
         `New patient: ${f.get('new') ? 'Yes' : 'No'}`, '', f.get('message') || '',
       ].join('\n');
       return { body, subject: `Appointment request: ${name}` };
@@ -621,7 +648,7 @@ function route() {
   bindPage();
   reveal();
 
-  const target = sub ? $(`#t-${sub}`) : pendingScroll ? $(`#${pendingScroll}`) : null;
+  const target = path === 'contact' && sub ? $('#appointment') : sub ? $(`#t-${sub}`) : pendingScroll ? $(`#${pendingScroll}`) : null;
   pendingScroll = null;
   if (target) {
     requestAnimationFrame(() => target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }));
@@ -648,3 +675,6 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 900 && document.body.classList.contains('menu-open')) toggleMenu(false);
 });
 route();
+setInterval(refreshOpeningStatus, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshOpeningStatus(); });
+window.addEventListener('focus', refreshOpeningStatus);
