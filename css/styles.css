@@ -411,7 +411,7 @@ main:focus { outline: none; }
 }
 .section-head--center .lead { margin-left: auto; margin-right: auto; }
 
-/* ---------- Fairview additions ---------- */
+/* ---------- shared additions ---------- */
 .practice-photo img { object-position: center 62%; }
 .about-photo img { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 70%; }
 .about-photo figcaption .h2 { margin-bottom: .4em; }
