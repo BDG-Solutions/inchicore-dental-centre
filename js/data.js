@@ -45,8 +45,8 @@ export const highlights = [
 ];
 
 export const team = [
-  { name: 'Dr Bernice Barry', role: 'Principal Dentist', quals: 'B.D.S.', initials: 'BB', bio: 'Principal dentist at Inchicore Dental Centre, caring for families in Dublin 8.' },
-  { name: 'Dr Keith McCourt', role: 'Principal Dentist', quals: 'B.D.S.', initials: 'KM', bio: 'Principal dentist at Inchicore Dental Centre, caring for families in Dublin 8.' },
+  { id: 'bernice-barry', name: 'Dr Bernice Barry', role: 'Principal Dentist', quals: 'B.D.S.', initials: 'BB', bio: 'Principal dentist at Inchicore Dental Centre, caring for families in Dublin 8.' },
+  { id: 'keith-mccourt', name: 'Dr Keith McCourt', role: 'Principal Dentist', quals: 'B.D.S.', initials: 'KM', bio: 'Principal dentist at Inchicore Dental Centre, caring for families in Dublin 8.' },
 ];
 
 export const aboutPillars = [
